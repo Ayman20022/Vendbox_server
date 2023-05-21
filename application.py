@@ -1,39 +1,19 @@
 from flask import Flask, request,jsonify
-from bson.binary import Binary
-
-from pymongo import MongoClient 
-
-from flask_cors import CORS
-import json
-
-
-
-
-
-app = Flask(__name__)
-
-
 import firebase_admin
 from firebase_admin import credentials,firestore
 import firebase_admin.db as fb_db
 
 
 
-# import psycopg2
+cred = credentials.Certificate("key.json")
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://prodcut-f9355-default-rtdb.firebaseio.com/'
+})
 
-# conn = psycopg2.connect(
-#     host="localhost",
-#     database="cart",
-#     user="dev",
-#     password="0000"
-# )
-
-# conn.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
+app = Flask(__name__)
 
 
-# cur = conn.cursor()
 
-# create table if it doesn't exist
 
 def find_product_with_same_cart_product_id(pr_id,data):
         for e in data :
@@ -68,10 +48,7 @@ if __name__ == '__main__':
 
 
 
-cred = credentials.Certificate("key.json")
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://prodcut-f9355-default-rtdb.firebaseio.com/'
-})
+
 
 
 
